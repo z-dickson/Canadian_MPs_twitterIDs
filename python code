@@ -1,0 +1,49 @@
+import tweepy # https://github.com/tweepy/tweepy
+import csv
+
+bearer_token = 'xxx'
+consumer_key = 'xxx'
+consumer_secret = 'xxx'
+access_key = 'xxx'
+access_secret ='xxx'
+
+
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_key, access_secret)
+api = tweepy.API(auth)
+
+slug = 'Canadian MP Twitter List'
+owner = 'CJPAC'
+list_id = 224955374
+
+
+def get_list_members(api, list_id, slug):
+    members = []
+    for page in tweepy.Cursor(api.list_members, list_id=list_id).items():
+        members.append(page) 
+    for m in members:
+        print(m)
+    return [ m.screen_name for m in members ]
+
+def create_csv(filename, usernames):
+	csvfile = open(filename, 'w')
+	c = csv.writer(csvfile)
+	c.writerow(["name","display_name","followers_count","following_count","acct_created"])
+	for name in usernames:
+		user_info = get_userinfo(name)
+		c.writerow(user_info)
+	csvfile.close()
+
+def get_userinfo(name):
+	user = api.get_user(screen_name = name)
+	user_info = [name.encode('utf-8'),user.name.encode('utf-8'),user.followers_count,user.friends_count,user.created_at]
+	return user_info
+
+def get_userinfo(name):
+	user = api.get_user(screen_name = name)
+	user_info = [name.encode('utf-8'),user.name.encode('utf-8'),user.followers_count,user.friends_count,user.created_at]
+	return user_info
+
+if __name__ == '__main__':
+	main()
