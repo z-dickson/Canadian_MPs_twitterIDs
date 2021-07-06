@@ -40,10 +40,6 @@ def get_userinfo(name):
 	user_info = [name.encode('utf-8'),user.name.encode('utf-8'),user.followers_count,user.friends_count,user.created_at]
 	return user_info
 
-def get_userinfo(name):
-	user = api.get_user(screen_name = name)
-	user_info = [name.encode('utf-8'),user.name.encode('utf-8'),user.followers_count,user.friends_count,user.created_at]
-	return user_info
 
 if __name__ == '__main__':
 	main()
