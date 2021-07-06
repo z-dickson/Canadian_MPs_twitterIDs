@@ -39,7 +39,11 @@ def get_userinfo(name):
 	user = api.get_user(screen_name = name)
 	user_info = [name.encode('utf-8'),user.name.encode('utf-8'),user.followers_count,user.friends_count,user.created_at]
 	return user_info
-
+	
+def main():
+	filename = "userinfo.csv"
+	usernames = get_list_members(api, list_id, slug)
+	create_csv(filename, usernames)
 
 if __name__ == '__main__':
 	main()
